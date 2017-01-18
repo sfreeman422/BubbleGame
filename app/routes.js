@@ -2,16 +2,18 @@ module.exports = function(app, passport){
 	var path = require('path');
 	//Handles a user's first visit to the page
 	app.get("/", function(req, res){
-	res.sendFile('index.html');
+	res.sendFile(path.resolve("public/signup.html"));
 	});
 	//Handles a user trying to get to the login page. Sends them the page. 
 	app.get("/login", function(req, res){
 		res.sendFile(path.resolve("public/login.html"));
 	});
 	//Handles a user submitting login information. 
-	app.post("/login", function(req, res){
-		//DO our LOGIN stuff here. 
-	});
+	app.post("/login", passport.authenticate('local-login', {
+		successRedirect: '/game',
+		failureRedirect: '/login',
+		failureFlash: true
+	}));
 	//Handles a user trying to get the signup page. 
 	app.get('/signup', function(req, res){
 		res.sendFile(path.resolve("public/signup.html"));
@@ -24,7 +26,7 @@ module.exports = function(app, passport){
 	}));
 	//Gives the user their page once they are logged in. 
 	app.get("/game", isLoggedIn, function(req, res){
-		res.sendFile('index.html');
+		res.sendFile(path.resolve("public/index.html"));
 	});
 	//Logs the user out and sends em home. 
 	app.get("/logout", function(req, res){

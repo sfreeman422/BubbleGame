@@ -1,4 +1,5 @@
 module.exports = function(app, passport){
+	var path = require('path');
 	//Handles a user's first visit to the page
 	app.get("/", function(req, res){
 	res.sendFile('index.html');
@@ -13,7 +14,7 @@ module.exports = function(app, passport){
 	});
 	//Handles a user trying to get the signup page. 
 	app.get('/signup', function(req, res){
-		res.sendFile("../public/signup.html", {root: __dirname});
+		res.sendFile(path.resolve("public/signup.html"));
 	});
 	//Handles a user trying to send sign up details. 
 	app.post("/signup", passport.authenticate('local-signup', {

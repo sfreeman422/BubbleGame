@@ -18,7 +18,7 @@ module.exports = function(app, passport){
 	});
 	//Handles a user trying to send sign up details. 
 	app.post("/signup", passport.authenticate('local-signup', {
-		successRedirect: 'profile', //redirects to the profile page upon successful account creation. 
+		successRedirect: '/', //redirects to the profile page upon successful account creation. 
 		failureRedirect: '/signup', //redirect back to the sign up page if there is an error. 
 		failureFlash: true //allows flash messages. 
 	}));

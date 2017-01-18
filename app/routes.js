@@ -6,7 +6,7 @@ module.exports = function(app, passport){
 	});
 	//Handles a user trying to get to the login page. Sends them the page. 
 	app.get("/login", function(req, res){
-		res.sendFile('login.html');
+		res.sendFile(path.resolve("public/login.html"));
 	});
 	//Handles a user submitting login information. 
 	app.post("/login", function(req, res){
@@ -18,13 +18,13 @@ module.exports = function(app, passport){
 	});
 	//Handles a user trying to send sign up details. 
 	app.post("/signup", passport.authenticate('local-signup', {
-		successRedirect: '/', //redirects to the profile page upon successful account creation. 
+		successRedirect: '/game', //redirects to the game page upon successful account creation. 
 		failureRedirect: '/signup', //redirect back to the sign up page if there is an error. 
 		failureFlash: true //allows flash messages. 
 	}));
 	//Gives the user their page once they are logged in. 
-	app.get("/profile", isLoggedIn, function(req, res){
-		res.sendFile("index.html");
+	app.get("/game", isLoggedIn, function(req, res){
+		res.sendFile('index.html');
 	});
 	//Logs the user out and sends em home. 
 	app.get("/logout", function(req, res){

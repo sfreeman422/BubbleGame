@@ -24,6 +24,12 @@ module.exports = function(app, passport){
 		failureRedirect: '/signup', //redirect back to the sign up page if there is an error. 
 		failureFlash: true //allows flash messages. 
 	}));
+	//Route for FB authentication and login
+	app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+	//handle the callback from FB once authenticated
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect: '/game', failureRedirect: '/'}))
+	
 	//Gives the user their page once they are logged in. 
 	app.get("/game", isLoggedIn, function(req, res){
 		res.sendFile(path.resolve("public/index.html"));
@@ -37,6 +43,7 @@ module.exports = function(app, passport){
 	function isLoggedIn(req, res, next){
 		//If a user is authenticated, do the thing they wanna do. 
 		if(req.isAuthenticated())
+			console.log("User is successfully logged in. ");
 			return next();
 		//If not, send em home. 
 		res.redirect('/');

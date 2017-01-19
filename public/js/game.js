@@ -46,7 +46,7 @@ function destroySprite(sprites){
   sprites.destroy();
 }
 
-function incrememnt(){
+function increment(){
 	counter++;
 	text.text = " You clicked on the bubble "+counter+" times!";
 }

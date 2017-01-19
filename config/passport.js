@@ -1,8 +1,13 @@
 //require the local strategy from pasport to allow us to authenticate if someone doesnt have social media
 var LocalStrategy = require('passport-local').Strategy;
+//require hte facebook strategy from passport to allow authentication via FB. 
+var FacebookStrategy = require('passport-facebook').Strategy; 
 
 //Load up our user model
 var User = require("../app/models/User");
+
+//Load the auth configuration from our auth.js file. 
+var configAuth = require('./auth');
 
 module.exports = function(passport){
 	//Passport session setup. Passport requires we serialize and deserialie users out of sessions
@@ -18,6 +23,15 @@ module.exports = function(passport){
 		})
 	});
 
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
+	//LOCAL SIGN UP SECTION***************************************
 	//LOCAL SIGN UP SECTION***************************************
 	//Creates a local strategy called local-signup that handles our local sign ups. 
 	passport.use('local-signup', new LocalStrategy({
@@ -51,7 +65,17 @@ module.exports = function(passport){
 			});
 		});
 		}));
-//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
+	//Strategy for local login. 
 	passport.use('local-login', new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password',
@@ -70,6 +94,49 @@ module.exports = function(passport){
 				return done(null, false, req.flash('loginMessage', 'Wrong pw.'));
 
 			return done(null, user);
+		})
+	}));
+	//Strategy for FB login
+	//Strategy for FB login
+	//Strategy for FB login
+	//Strategy for FB login
+	//Strategy for FB login
+	//Strategy for FB login
+	//Strategy for FB login
+	passport.use(new FacebookStrategy({
+		clientID: configAuth.facebookAuth.clientID,
+		clientSecret: configAuth.facebookAuth.clientSecret,
+		callbackURL: configAuth.facebookAuth.callbackURL,
+		profileFields: ['emails', 'displayName']
+	},
+	//Facebook will send back the token and profile
+	function(token, refreshToken, profile, done){
+		//Async
+		process.nextTick(function(){
+			User.findOne({'facebook.id': profile.id}, function(err, user){
+				//If there is an error, throw it. 
+				if(err)
+					return done(err)
+				//If a user exists, log em in. 
+				if(user){
+					return done(null, user);
+					//Else create them. 
+				} else{
+					var newUser = new User();
+					newUser.facebook.id = profile.id;
+					newUser.facebook.token = token;
+					newUser.facebook.name = profile.displayName;
+					newUser.facebook.email = profile.emails[0].value; 
+
+					newUser.save(function(err){
+						if(err)
+							throw err;
+						//if not log finish out. 
+						return done(null, newUser);
+					})
+
+				}
+			})
 		})
 	}))
 };

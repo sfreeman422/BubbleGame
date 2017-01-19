@@ -7,8 +7,8 @@ module.exports = {
 		'callbackURL': 'http://localhost:3000/auth/facebook/callback' //THIS WILL NEED TO BE CHANGED IN PROD
 	},
 	'twitterAuth':{
-		'consumerKey': '',
-		'consumerSecret': '',
+		'consumerKey': '0BoEjUsl7tfCJI7plfkFMlIs9',
+		'consumerSecret': 'Pa5ZtWF1Kf1gS4d1h9I8k4xG8fXEcoeUVtbyoyC9X2j1kQTmVF',
 		'callbackURL': 'http://localhost:3000/auth/twitter/callback'
 	},
 	'googleAuth': {

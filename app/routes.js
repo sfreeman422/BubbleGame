@@ -30,6 +30,11 @@ module.exports = function(app, passport){
 	//handle the callback from FB once authenticated
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect: '/game', failureRedirect: '/'}))
 	
+	//Handles the authentication and login on twitter
+	app.get('/auth/twitter', passport.authenticate('twitter'));
+
+	//Handle the twitter callback
+	app.get('/auth/twitter/callback', passport.authenticate('twitter', {successRedirect: '/game', failureRedirect: '/'}));
 	//Gives the user their page once they are logged in. 
 	app.get("/game", isLoggedIn, function(req, res){
 		res.sendFile(path.resolve("public/index.html"));

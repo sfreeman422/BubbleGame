@@ -2,6 +2,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 //require hte facebook strategy from passport to allow authentication via FB. 
 var FacebookStrategy = require('passport-facebook').Strategy; 
+var TwitterStrategy = require('passport-twitter').Strategy; 
 
 //Load up our user model
 var User = require("../app/models/User");
@@ -135,6 +136,35 @@ module.exports = function(passport){
 						return done(null, newUser);
 					})
 
+				}
+			})
+		})
+	}));
+	passport.use(new TwitterStrategy({
+		consumerKey: configAuth.twitterAuth.consumerKey,
+		consumerSecret: configAuth.twitterAuth.consumerSecret,
+		callbackURL: configAuth.twitterAuth.callbackURL
+	},
+	function(token, tokenSecret, profile, done){
+		process.nextTick(function(){
+			User.findOne({'twitter.id' : profile.id}, function(err, user){
+				if(err)
+					return done(err);
+				if(user){
+					console.log("User logged in with twitter.");
+					return done(null, user);
+				} else{
+					var newUser = new User();
+					newUser.twitter.id = profile.id;
+					newUser.twitter.token = token;
+					newUser.twitter.username = profile.username;
+					newUser.twitter.displayName = profile.displayName; 
+
+					newUser.save(function(err){
+						if(err)
+							throw err; 
+						return done(null, newUser);
+					});
 				}
 			})
 		})

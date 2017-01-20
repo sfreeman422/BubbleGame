@@ -43,7 +43,7 @@ function create(){
 function createSprite(){
   //variable for bubbles being created
   var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
-  bubble1.body.setRectangle(40, 40);
+  bubble1.body.setCircle(20)
   //enables input on bubble sprites
   bubble1.inputEnabled = true;
   //enables physics for each bubble
@@ -52,6 +52,10 @@ function createSprite(){
   //collision
   var bubbleCollisionGroup = game.physics.p2.createCollisionGroup();
   bubble1.body.setCollisionGroup(bubbleCollisionGroup);
+  bubble1.body.velocity.x = 200;    
+  bubble1.body.velocity.y = 200;
+
+
 
   //on click increments our score counter 
   bubble1.events.onInputDown.add(increment, this);

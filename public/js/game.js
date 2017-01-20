@@ -19,8 +19,18 @@ function preload(){
 
 function create(){
 
+  //start physics
+  game.physics.startSystem(Phaser.Physics.P2JS);
+  
+  game.physics.p2.setImpactEvents(true);
+  game.physics.p2.restitution = 1;
+  
+  game.physics.p2.updateBoundsCollisionGroup();
+
   //creates a sprite group for bubbles
   sprites = game.add.group();
+  sprites.enableBody = true;
+  sprites.physicsBodyType = Phaser.Physics.P2JS;
 
   //runs the createSprite function every second
   game.time.events.loop(1000, createSprite, this);
@@ -33,12 +43,22 @@ function create(){
 function createSprite(){
   //variable for bubbles being created
   var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
+  bubble1.body.setRectangle(40, 40);
   //enables input on bubble sprites
   bubble1.inputEnabled = true;
+  //enables physics for each bubble
+  
+
+  //collision
+  var bubbleCollisionGroup = game.physics.p2.createCollisionGroup();
+  bubble1.body.setCollisionGroup(bubbleCollisionGroup);
+
   //on click increments our score counter 
   bubble1.events.onInputDown.add(increment, this);
+
   //on click runs the destroySprite function to remove the sprite
   bubble1.events.onInputDown.add(destroySprite, this);
+ 
 }
 
 //function to destroy sprite
@@ -52,5 +72,4 @@ function increment(){
 }
 
 function update(){
-	
 }

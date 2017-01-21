@@ -10,7 +10,7 @@ var sprites;
 function preload(){
 	//This preloads all of the assets that we will need for our game. 
 	//Loads an image that we will call bubble1 from the directory listed in the 2nd parameter. 
-	game.load.image('bubble1', '../assets/pics/bubble.svg');
+	game.load.image('bubble1', '../assets/pics/bubble.png');
 
 	//This allows the game to fully fit the screen and scale accordingly
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -24,7 +24,6 @@ function create(){
   
   game.physics.p2.setImpactEvents(true);
   game.physics.p2.restitution = 1;
-  
   game.physics.p2.updateBoundsCollisionGroup();
 
   //creates a sprite group for bubbles
@@ -43,13 +42,14 @@ function create(){
 function createSprite(){
   //variable for bubbles being created
   var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
-  bubble1.body.setCircle(20)
+  var rand = game.rnd.realInRange(.2, .5);
+  bubble1.scale.setTo(rand, rand);
+  bubble1.body.setCircle(50)
   //enables input on bubble sprites
   bubble1.inputEnabled = true;
-  //enables physics for each bubble
   
 
-  //collision
+  //sets bubble collision group and initial velocity
   var bubbleCollisionGroup = game.physics.p2.createCollisionGroup();
   bubble1.body.setCollisionGroup(bubbleCollisionGroup);
   bubble1.body.velocity.x = 200;    

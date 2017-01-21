@@ -25,6 +25,7 @@ function create(){
   game.physics.p2.setImpactEvents(true);
   game.physics.p2.restitution = 1;
   game.physics.p2.updateBoundsCollisionGroup();
+  var bubbleCollisionGroup = game.physics.p2.createCollisionGroup();
 
   //creates a sprite group for bubbles
   sprites = game.add.group();
@@ -36,33 +37,36 @@ function create(){
 
 	//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 	text = game.add.text(1, 1, '', { fill: '#ffffff' });
-}
-
-//function for creating individual bubbles on random map axis
-function createSprite(){
-  //variable for bubbles being created
-  var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
-  var rand = game.rnd.realInRange(.2, .5);
-  bubble1.scale.setTo(rand, rand);
-  bubble1.body.setCircle(50)
-  //enables input on bubble sprites
-  bubble1.inputEnabled = true;
-  
-
-  //sets bubble collision group and initial velocity
-  var bubbleCollisionGroup = game.physics.p2.createCollisionGroup();
-  bubble1.body.setCollisionGroup(bubbleCollisionGroup);
-  bubble1.body.velocity.x = 200;    
-  bubble1.body.velocity.y = 200;
 
 
+  //function for creating individual bubbles on random map axis
+  function createSprite(){
+    //variable for bubbles being created
+    var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
+    var rand = game.rnd.realInRange(.2, .5);
+    bubble1.scale.setTo(rand, rand);
+    bubble1.body.setCircle(50)
+    //enables input on bubble sprites
+    bubble1.inputEnabled = true;
+    
 
-  //on click increments our score counter 
-  bubble1.events.onInputDown.add(increment, this);
+    //sets bubble collision group and initial velocity
+   
+    bubble1.body.setCollisionGroup(bubbleCollisionGroup);
+    bubble1.body.collides(bubbleCollisionGroup);
+    bubble1.body.velocity.x = 200;    
+    bubble1.body.velocity.y = 200;
 
-  //on click runs the destroySprite function to remove the sprite
-  bubble1.events.onInputDown.add(destroySprite, this);
- 
+
+
+    //on click increments our score counter 
+    bubble1.events.onInputDown.add(increment, this);
+
+    //on click runs the destroySprite function to remove the sprite
+    bubble1.events.onInputDown.add(destroySprite, this);
+   
+  }
+
 }
 
 //function to destroy sprite

@@ -1,6 +1,6 @@
 //Instantiates a new Phase Game object with a resolution of 800x600, using Phase.auto as a renderer (ues openGL first, if that fails it falls back to canvas), 
 //sets the div to bind to to game. Loads the preloader and create functions. 
-var game = new Phaser.Game("100%", "100%", Phaser.AUTO, 'game', { preload: preload, create: create, update: update});
+var game = new Phaser.Game(3440, 1440, Phaser.AUTO, 'game', { preload: preload, create: create, update: update});
 
 var text;
 var score = 0;
@@ -13,7 +13,7 @@ function preload(){
 	game.load.image('bubble1', '../assets/pics/bubble.png');
 
 	//This allows the game to fully fit the screen and scale accordingly
-	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 }
 
@@ -37,6 +37,7 @@ function create(){
 
 	//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 	text = game.add.text(1, 1, '', { fill: '#ffffff' });
+  pause = game.add.text(3330, 10, 'Pause', {fill: '#ffffff'});
 
 
   //function for creating individual bubbles on random map axis

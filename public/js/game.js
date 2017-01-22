@@ -1,19 +1,25 @@
 //Instantiates a new Phase Game object with a resolution of 800x600, using Phase.auto as a renderer (ues openGL first, if that fails it falls back to canvas), 
 //sets the div to bind to to game. Loads the preloader and create functions. 
-var game = new Phaser.Game(3440, 1440, Phaser.AUTO, 'game', { preload: preload, create: create, update: update});
-var w = 3440;
-var h = 1440; 
+var game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'game', { preload: preload, create: create, update: update});
+var w = game._width;
+var h = game._height; 
+
+console.log(w);
+console.log(h);
+
+console.log(game);
 var text;
 var counter = 0; 
 var sprites;
 
 function preload(){
+  //This allows the game to fully fit the screen and scale accordingly
+  this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+
 	//This preloads all of the assets that we will need for our game. 
 	//Loads an image that we will call bubble1 from the directory listed in the 2nd parameter. 
 	game.load.image('bubble1', '../assets/pics/bubble.png');
-
-	//This allows the game to fully fit the screen and scale accordingly
-	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+  game.load.image('menu', '../assets/pics/menu.jpg')
 
 }
 

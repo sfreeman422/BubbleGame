@@ -1,7 +1,8 @@
 //Instantiates a new Phase Game object with a resolution of 800x600, using Phase.auto as a renderer (ues openGL first, if that fails it falls back to canvas), 
 //sets the div to bind to to game. Loads the preloader and create functions. 
 var game = new Phaser.Game(3440, 1440, Phaser.AUTO, 'game', { preload: preload, create: create, update: update});
-
+var w = 3440;
+var h = 1440; 
 var text;
 var score = 0;
 var counter = 0; 
@@ -42,18 +43,18 @@ function create(){
     */
 
     // Create a label to use as a button
-    pause_label = game.add.text(3330, 10, 'Pause', { font: '24px Arial', fill: '#fff' });
+    pause_label = game.add.text(w - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
     pause_label.inputEnabled = true;
     pause_label.events.onInputUp.add(function () {
         // When the paus button is pressed, we pause the game
         game.paused = true;
 
         // Then add the menu
-        menu = game.add.sprite(1720, 720, 'menu');
+        menu = game.add.sprite(w/2, h/2, 'menu');
         menu.anchor.setTo(0.5, 0.5);
 
         // And a label to illustrate which menu item was chosen. (This is not necessary)
-        choiseLabel = game.add.text(1720, 640, 'Click outside menu to continue', { font: '30px Arial', fill: '#fff' });
+        choiseLabel = game.add.text(w/2, h-150, 'Click outside menu to continue', { font: '30px Arial', fill: '#fff' });
         choiseLabel.anchor.setTo(0.5, 0.5);
     });
 

@@ -4,7 +4,6 @@ var game = new Phaser.Game(3440, 1440, Phaser.AUTO, 'game', { preload: preload, 
 var w = 3440;
 var h = 1440; 
 var text;
-var score = 0;
 var counter = 0; 
 var sprites;
 

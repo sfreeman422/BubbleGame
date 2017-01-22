@@ -76,7 +76,7 @@ function destroySprite(sprites){
 
 function increment(){
 	counter++;
-	text.text = " You clicked on the bubble "+counter+" times!";
+	text.text = "Score: "+counter;
 }
 
 function update(){

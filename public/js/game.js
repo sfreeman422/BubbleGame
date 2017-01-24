@@ -12,6 +12,9 @@ function preload(){
 	//Loads an image that we will call bubble1 from the directory listed in the 2nd parameter. 
 	game.load.image('bubble1', '../assets/pics/bubble.png');
 
+  game.load.image('line1', '../assets/pics/redline.png');
+
+
 	//This allows the game to fully fit the screen and scale accordingly
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
@@ -31,6 +34,10 @@ function create(){
   sprites = game.add.group();
   sprites.enableBody = true;
   sprites.physicsBodyType = Phaser.Physics.P2JS;
+
+  //creates the line image 
+  this.endline = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'line1')
+
 
   //runs the createSprite function every second
   game.time.events.loop(1000, createSprite, this);

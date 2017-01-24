@@ -12,6 +12,7 @@ var gameStarted = false;
 var headline;
 var startButton;
 var loginButton;
+var menuBubblesOnScreen = [];
 
 //Function to load the sprites before we start the game. 
 function preload(){
@@ -92,6 +93,10 @@ function create(){
     	if(gameStarted == true){
 	    	bubble1.events.onInputDown.add(destroySprite, this);
     	}
+    	else{
+    		menuBubblesOnScreen.push(bubble1);
+    		console.log(menuBubblesOnScreen);
+    	}
   	}
 
   	//Function to destroy a sprite. This will be used to pop bubbles and track the score. 
@@ -104,6 +109,9 @@ function create(){
 	//Function that will be used to start the actual game upon clicking start in the game menu. 
 	function startGame(sprite){
 		game.time.events.remove(createMenuBubbles);
+		for(var i = 0 ; i < menuBubblesOnScreen.length; i++){
+			menuBubblesOnScreen[i].destroy();
+		}
 		gameStarted = true; 
 		sprite.destroy();
 		loginButton.destroy();

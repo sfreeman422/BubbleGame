@@ -46,7 +46,7 @@ function create(){
 	game.time.events.loop(500, createSprite, this);
 
 	//Show a headline for our game.
-	headline = game.add.text(850, 300, 'Bubble Game', {fill: '#ffffff'});
+	headline = game.add.text(775, 250, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
 	startButton = game.add.sprite(850, 350, 'startButton');

@@ -128,6 +128,25 @@ function create(){
     bubble1.events.onInputDown.add(destroySprite, this);
    
   }
+  //Function that will be used to create bubble sprites for the menu background. 
+  function createMenuSprite(){
+    //variable for bubbles being created
+    var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1")
+    var rand = game.rnd.realInRange(.2, .5);
+    bubble1.scale.setTo(rand, rand);
+    bubble1.body.setCircle(50)
+    //enables input on bubble sprites
+    bubble1.inputEnabled = true;
+    
+
+    //sets bubble collision group and initial velocity
+   
+    bubble1.body.setCollisionGroup(bubbleCollisionGroup);
+    bubble1.body.collides(bubbleCollisionGroup);
+    bubble1.body.velocity.x = 200;    
+    bubble1.body.velocity.y = 200;
+   
+  }
 
 }
 
@@ -139,7 +158,4 @@ function destroySprite(sprites){
 function increment(){
 	counter++;
 	text.text = "Score: "+counter;
-}
-
-function update(){
 }

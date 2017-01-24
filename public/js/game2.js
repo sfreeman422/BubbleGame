@@ -43,7 +43,7 @@ function create(){
 	sprites.physicsBodyType = Phaser.Physics.P2JS;
 	
 	//runs the createSprite function every second for our background.
-	game.time.events.loop(500, createSprite, this);
+	var createMenuBubbles = game.time.events.loop(1000, createSprite, this);
 
 	//Show a headline for our game.
 	headline = game.add.text(775, 250, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
@@ -102,16 +102,20 @@ function create(){
 	}
 
 	//Function that will be used to start the actual game upon clicking start in the game menu. 
-	function startGame(sprites){
-		startGame = true; 
-		sprites.destroy();
+	function startGame(sprite){
+		game.time.events.remove(createMenuBubbles);
+		gameStarted = true; 
+		sprite.destroy();
+		loginButton.destroy();
+		headline.destroy();
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(1000, createSprite('game'), this)
+		game.time.events.loop(1000, createSprite, this)
 
   	}
 
+  	//Function that will allow our users to login via a modal. 
   	function login(){
   		//This code should send a request to our login page in the form of a modal so that we can have the user login and keep track of their saved games etc. 
   		//1. Get request to our login route.

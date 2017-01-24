@@ -22,6 +22,7 @@ function preload(){
 	game.load.image('bubble1', '../assets/pics/bubble.png');
   	game.load.image('menu', '../assets/pics/menu.jpg')
   	game.load.image('startButton', '../assets/pics/startbutton.png');
+  	game.load.image('loginButton', '../assets/pics/login.png');
 
 }
 
@@ -48,12 +49,26 @@ function create(){
 	headline = game.add.text(850, 300, 'Bubble Game', {fill: '#ffffff'});
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
-	var startButton = game.add.sprite(850, 350, 'startButton');
+	startButton = game.add.sprite(850, 350, 'startButton');
 	startButton.scale.setTo(.45, .45);
 	startButton.inputEnabled = true; 
 	startButton.events.onInputUp.add(startGame, this);
+
 	//Login to Game
-	loginButton = game.add.text(850, 500, 'Login to view Leaderboards/Track score', {fill: '#ffffff'});
+	loginButton = game.add.sprite(850, 500, 'loginButton');
+	loginButton.scale.setTo(.45, .45);
+	loginButton.inputEnabled = true; 
+	loginButton.events.onInputUp.add(login);
+
+	///////////////////////////////////////Function Declarations///////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 	//Function that will be used to create bubble sprites for the menu background. 
   	function createSprite(){
     	//variable for bubbles being created
@@ -95,5 +110,14 @@ function create(){
 		//The game has started so we begin creating game bubbles. 
 		game.time.events.loop(1000, createSprite('game'), this)
 
+  	}
+
+  	function login(){
+  		//This code should send a request to our login page in the form of a modal so that we can have the user login and keep track of their saved games etc. 
+  		//1. Get request to our login route.
+  		//2. Post request to our login route. 
+  		//3. Redirect back to main page. 
+  		//4. Ensure that scores are being saved to the users profile. 
+  		console.log("testing functionality of the login function.,");
   	}
 }

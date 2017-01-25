@@ -117,7 +117,7 @@ function create(){
 
   //moves line and checks loss condition every movement
   function lineMove(){
-      line1.y-=40;
+      line1.y-=1;
       lossCheck();
       console.log(line1.y)
   }
@@ -133,7 +133,7 @@ function create(){
         {
             console.log("Sorry Game Over!")
             console.log("Score: " + counter)
-            destroyLine(line1);
+            destroyLine(this.line1);
         }
   }
 
@@ -157,7 +157,7 @@ function create(){
     line1 = game.add.sprite(0, 1050, 'line1');
     game.world.sendToBack(line1);
     line1.scale.setTo(game.width, 1);
-    game.time.events.loop(1000, lineMove, 'line1');
+    game.time.events.loop(1, lineMove, 'line1');
 
 
   }

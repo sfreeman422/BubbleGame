@@ -15,6 +15,7 @@ var startButton;
 var loginButton;
 var menuBubblesOnScreen = [];
 var line1;
+var lineLoop; 
 
 //Function to load the sprites before we start the game. 
 function preload(){
@@ -102,8 +103,8 @@ function create(){
 	    	bubble1.events.onInputDown.add(destroySprite, this);
     	}
     	else{
+    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
     		menuBubblesOnScreen.push(bubble1);
-    		console.log(menuBubblesOnScreen);
     	}
   	}
 
@@ -117,13 +118,13 @@ function create(){
   //function to destroy line
   function destroyLine(line){
       line.destroy();
+      game.time.events.remove(lineLoop);
   }
 
   //moves line and checks loss condition every movement
   function lineMove(){
       line1.y-=1;
       lossCheck();
-      console.log(line1.y)
   }
 
   //function to push line down
@@ -137,7 +138,7 @@ function create(){
         {
             console.log("Sorry Game Over!")
             console.log("Score: " + counter)
-            destroyLine(this.line1);
+            destroyLine(line1);
         }
   }
 
@@ -161,7 +162,7 @@ function create(){
     line1 = game.add.sprite(0, 1050, 'line1');
     game.world.sendToBack(line1);
     line1.scale.setTo(game.width, 1);
-    game.time.events.loop(1, lineMove, 'line1');
+    lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
 
   }

@@ -164,12 +164,15 @@ function create(){
 		sprites.destroy();
   		if(sprites.key == 'bubble1'){
   			counter++;
+  			lineDown(1);
   		}
   		else if (sprites.key == 'bubble2'){
   			counter+=2;
+  			lineDown(2);
   		}
   		else if (sprites.key == 'bubble3'){
   			counter+=3; 
+  			lineDown(3);
   		}
   		scoreText.text = "Score: "+counter; 
 	}
@@ -182,13 +185,18 @@ function create(){
 
   //moves line and checks loss condition every movement
   function lineMove(){
-      line1.y-=1;
+      line1.y-=(game.world._height*.001);
       lossCheck();
   }
 
-  //function to push line down
-  function lineDown(){
-    line1.y+=20;
+  //function to push line down 20 pixels * the multiplier provided by the bubble in destroySprite.
+  function lineDown(multiplier){
+  	console.log("The lines current position is "+line1.y);
+  	console.log("Plan to move: "+((window.innerWidth*.01)*multiplier));
+  	console.log("This value is: "+(typeof ((window.innerWidth*.01)*multiplier)));
+    line1.y+=((window.innerWidth*.01)*multiplier);
+    console.log("Line moved "+(window.innerWidth*.01)+" pixels.");
+    console.log("Lines new position is "+line1.y);
   }
 
   //function for checking loss condition (if line is greater than game height)

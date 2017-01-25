@@ -99,7 +99,6 @@ function create(){
 	    	bubble1.body.velocity.y = 200;
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
-	        bubble1.events.onInputDown.add(lineDown)
 		    	bubble1.events.onInputDown.add(destroySprite, this);
 	    	}
 	    	else{
@@ -121,7 +120,6 @@ function create(){
 	    	bubble2.body.velocity.y = 200;
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
-	        bubble2.events.onInputDown.add(lineDown)
 		    	bubble2.events.onInputDown.add(destroySprite, this);
 	    	}
 	    	else{
@@ -143,7 +141,6 @@ function create(){
 	    	bubble3.body.velocity.y = 200;
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
-	        bubble3.events.onInputDown.add(lineDown)
 		    	bubble3.events.onInputDown.add(destroySprite, this);
 	    	}
 	    	else{
@@ -152,7 +149,7 @@ function create(){
 	    	}
     	}
     	else{
-    		console.log("Number generated was not between 1 and 3, it was: "+randomBubble);
+    		console.log("Number generated was not between .2 and .5, it was: "+rand);
     	}
 
     	

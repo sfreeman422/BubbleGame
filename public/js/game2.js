@@ -51,17 +51,19 @@ function create(){
 
 
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
-	headline = game.add.text(game.world.centerX-200, game.world.centerY-300, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
-	//orig: 775, 250
+	headline = game.add.text(game.world.centerX, game.world.centerY-(game.world.centerY*0.1), 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
+	headline.anchor.setTo(0.5);
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
-	startButton = game.add.sprite(game.world.centerX-175, game.world.centerY-100, 'startButton');
+	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.15), 'startButton');
+	startButton.anchor.setTo(0.5);
 	startButton.scale.setTo(scaleRatio, scaleRatio);
 	startButton.inputEnabled = true; 
 	startButton.events.onInputUp.add(startGame, this);
 
 	//Show a login to game sprite, that when clicked will allow us to login. 
-	loginButton = game.add.sprite(game.world.centerX-175, game.world.centerY+100, 'loginButton');
+	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.3), 'loginButton');
+	loginButton.anchor.setTo(0.5);
 	loginButton.scale.setTo(scaleRatio, scaleRatio);
 	loginButton.inputEnabled = true; 
 	loginButton.events.onInputUp.add(login);

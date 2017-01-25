@@ -24,11 +24,12 @@ function preload(){
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('bubble1', '../assets/pics/bubble.png');
-  game.load.image('line1', '../assets/pics/line.png');
-  game.load.image('menu', '../assets/pics/menu.jpg')
-  game.load.image('startButton', '../assets/pics/startbutton.png');
-  game.load.image('loginButton', '../assets/pics/login.png');
-
+	game.load.image('line1', '../assets/pics/line.png');
+	game.load.image('menu', '../assets/pics/menu.jpg')
+	game.load.image('startButton', '../assets/pics/startbutton.png');
+	game.load.image('loginButton', '../assets/pics/login.png');
+	game.load.image('bubble2', '../assets/pics/bubble2.png');
+	game.load.image('bubble3', '../assets/pics/bubble3.png');
 }
 
 //Function to create game elements. 
@@ -79,39 +80,97 @@ function create(){
 
 
 	//Function that will be used to create bubble sprites for the menu background. 
+	//THIS SHOULD BE REPLACED WITH A CONSTRUCTOR CUZ THIS IS HORRIBLY INEFFICIENT!!!
   	function createSprite(){
-    	//variable for bubbles being created
-    	var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1");
-    	//Decides random scale for the bubble being created. 
+  		//Decides random scale for the bubble being created. 
     	var rand = game.rnd.realInRange(.2, .5);
-    	//Creates bubble with random size. 
-    	bubble1.scale.setTo(rand, rand);
-    	//Sets the area in which the object should collide. Similar to hitbox. 
-    	bubble1.body.setCircle(50)
-
-    	//enables input on bubble sprites
-    	bubble1.inputEnabled = true;
-
-    	//sets bubble collision group and initial velocity
-    	bubble1.body.setCollisionGroup(bubbleCollisionGroup);
-    	bubble1.body.collides(bubbleCollisionGroup);
-    	bubble1.body.velocity.x = 200;    
-    	bubble1.body.velocity.y = 200;
-    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
-    	if(gameStarted == true){
-        bubble1.events.onInputDown.add(lineDown)
-	    	bubble1.events.onInputDown.add(destroySprite, this);
+  		if(rand <= .3){
+  			var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1");
+  			//Creates bubble with random size. 
+    		bubble1.scale.setTo(rand, rand);
+    		//Sets the area in which the object should collide. Similar to hitbox. 
+    		bubble1.body.setCircle(50)
+    		//enables input on bubble sprites
+    		bubble1.inputEnabled = true;
+    		//sets bubble collision group and initial velocity
+	    	bubble1.body.setCollisionGroup(bubbleCollisionGroup);
+	    	bubble1.body.collides(bubbleCollisionGroup);
+	    	bubble1.body.velocity.x = 200;    
+	    	bubble1.body.velocity.y = 200;
+	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
+	    	if(gameStarted == true){
+	        bubble1.events.onInputDown.add(lineDown)
+		    	bubble1.events.onInputDown.add(destroySprite, this);
+	    	}
+	    	else{
+	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
+	    		menuBubblesOnScreen.push(bubble1);
+	    	}
+  		}
+  		else if(rand >=.301 && rand <=.4){
+  			var bubble2 = sprites.create(game.world.randomX, game.world.randomY, "bubble2");
+  			//Creates bubble with random size. 
+    		bubble2.scale.setTo(rand, rand);
+    		//Sets the area in which the object should collide. Similar to hitbox. 
+    		bubble2.body.setCircle(50)
+    		//enables input on bubble sprites
+    		bubble2.inputEnabled = true;
+    		bubble2.body.setCollisionGroup(bubbleCollisionGroup);
+	    	bubble2.body.collides(bubbleCollisionGroup);
+	    	bubble2.body.velocity.x = 200;    
+	    	bubble2.body.velocity.y = 200;
+	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
+	    	if(gameStarted == true){
+	        bubble2.events.onInputDown.add(lineDown)
+		    	bubble2.events.onInputDown.add(destroySprite, this);
+	    	}
+	    	else{
+	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
+	    		menuBubblesOnScreen.push(bubble2);
+	    	}
+  		}
+    	else if(rand >=.401){
+    		var bubble3 = sprites.create(game.world.randomX, game.world.randomY, "bubble3");
+    		//Creates bubble with random size. 
+    		bubble3.scale.setTo(rand, rand);
+    		//Sets the area in which the object should collide. Similar to hitbox. 
+    		bubble3.body.setCircle(50)
+    		//enables input on bubble sprites
+    		bubble3.inputEnabled = true;
+    		bubble3.body.setCollisionGroup(bubbleCollisionGroup);
+	    	bubble3.body.collides(bubbleCollisionGroup);
+	    	bubble3.body.velocity.x = 200;    
+	    	bubble3.body.velocity.y = 200;
+	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
+	    	if(gameStarted == true){
+	        bubble3.events.onInputDown.add(lineDown)
+		    	bubble3.events.onInputDown.add(destroySprite, this);
+	    	}
+	    	else{
+	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
+	    		menuBubblesOnScreen.push(bubble3);
+	    	}
     	}
     	else{
-    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
-    		menuBubblesOnScreen.push(bubble1);
+    		console.log("Number generated was not between 1 and 3, it was: "+randomBubble);
     	}
+
+    	
   	}
 
   	//Function to destroy a sprite. This will be used to pop bubbles and track the score. 
 	function destroySprite(sprites){
-  		sprites.destroy();
-  		counter++;
+		console.log(sprites);
+		sprites.destroy();
+  		if(sprites.key == 'bubble1'){
+  			counter++;
+  		}
+  		else if (sprites.key == 'bubble2'){
+  			counter+=2;
+  		}
+  		else if (sprites.key == 'bubble3'){
+  			counter+=3; 
+  		}
   		scoreText.text = "Score: "+counter; 
 	}
 

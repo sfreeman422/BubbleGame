@@ -1,10 +1,11 @@
 //Instantiates a new Phase Game object with a resolution of 800x600, using Phase.auto as a renderer (ues openGL first, if that fails it falls back to canvas), 
 //sets the div to bind to to game. Loads the preloader and create functions. 
-var game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'game', { preload: preload, create: create});
+var game = new Phaser.Game(window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, Phaser.AUTO, 'game', { preload: preload, create: create});
 
 //Global variables. 
 var w = game._width;
 var h = game._height; 
+var scaleRatio = window.devicePixelRatio/3;
 var scoreText;
 var counter = 0; 
 var sprites;
@@ -50,17 +51,18 @@ function create(){
 
 
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
-	headline = game.add.text(775, 250, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
+	headline = game.add.text(game.world.centerX-200, game.world.centerY-300, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
+	//orig: 775, 250
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
-	startButton = game.add.sprite(850, 350, 'startButton');
-	startButton.scale.setTo(.45, .45);
+	startButton = game.add.sprite(game.world.centerX-175, game.world.centerY-100, 'startButton');
+	startButton.scale.setTo(scaleRatio, scaleRatio);
 	startButton.inputEnabled = true; 
 	startButton.events.onInputUp.add(startGame, this);
 
 	//Show a login to game sprite, that when clicked will allow us to login. 
-	loginButton = game.add.sprite(850, 500, 'loginButton');
-	loginButton.scale.setTo(.45, .45);
+	loginButton = game.add.sprite(game.world.centerX-175, game.world.centerY+100, 'loginButton');
+	loginButton.scale.setTo(scaleRatio, scaleRatio);
 	loginButton.inputEnabled = true; 
 	loginButton.events.onInputUp.add(login);
 
@@ -170,6 +172,7 @@ function create(){
   		//3. Redirect back to main page. 
   		//4. Ensure that scores are being saved to the users profile. 
   		console.log("testing functionality of the login function.,");
+  		window.open = "https://www.google.com";
   	}
 }
 

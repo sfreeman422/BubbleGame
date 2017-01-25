@@ -156,6 +156,7 @@ function create(){
   	}
 
   	//Function to destroy a sprite. This will be used to pop bubbles and track the score. 
+  	//Each bubble is popped and adjusts score/lineDown based on how big the bubble was. 
 	function destroySprite(sprites){
 		console.log(sprites);
 		sprites.destroy();
@@ -174,26 +175,21 @@ function create(){
   		scoreText.text = "Score: "+counter; 
 	}
 
-  //function to destroy line
+  //function to destroy line and the loop that causes the line to move. 
   function destroyLine(line){
       line.destroy();
       game.time.events.remove(lineLoop);
   }
 
-  //moves line and checks loss condition every movement
+  //moves line up .1% and checks loss condition every movement
   function lineMove(){
       line1.y-=(game.world._height*.001);
       lossCheck();
   }
 
-  //function to push line down 20 pixels * the multiplier provided by the bubble in destroySprite.
+  //function to push line down 1% * the multiplier provided by the bubble in destroySprite.
   function lineDown(multiplier){
-  	console.log("The lines current position is "+line1.y);
-  	console.log("Plan to move: "+((window.innerWidth*.01)*multiplier));
-  	console.log("This value is: "+(typeof ((window.innerWidth*.01)*multiplier)));
     line1.y+=((window.innerWidth*.01)*multiplier);
-    console.log("Line moved "+(window.innerWidth*.01)+" pixels.");
-    console.log("Lines new position is "+line1.y);
   }
 
   //function for checking loss condition (if line is greater than game height)

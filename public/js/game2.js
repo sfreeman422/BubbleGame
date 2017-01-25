@@ -13,6 +13,7 @@ var headline;
 var startButton;
 var loginButton;
 var menuBubblesOnScreen = [];
+var line1;
 
 //Function to load the sprites before we start the game. 
 function preload(){
@@ -21,9 +22,10 @@ function preload(){
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('bubble1', '../assets/pics/bubble.png');
-  	game.load.image('menu', '../assets/pics/menu.jpg')
-  	game.load.image('startButton', '../assets/pics/startbutton.png');
-  	game.load.image('loginButton', '../assets/pics/login.png');
+  game.load.image('line1', '../assets/pics/line.png');
+  game.load.image('menu', '../assets/pics/menu.jpg')
+  game.load.image('startButton', '../assets/pics/startbutton.png');
+  game.load.image('loginButton', '../assets/pics/login.png');
 
 }
 
@@ -45,6 +47,7 @@ function create(){
 	
 	//runs the createSprite function every second for our background.
 	var createMenuBubbles = game.time.events.loop(1000, createSprite, this);
+
 
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
 	headline = game.add.text(775, 250, 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
@@ -91,6 +94,7 @@ function create(){
     	bubble1.body.velocity.y = 200;
     	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
     	if(gameStarted == true){
+        bubble1.events.onInputDown.add(lineDown)
 	    	bubble1.events.onInputDown.add(destroySprite, this);
     	}
     	else{
@@ -106,6 +110,34 @@ function create(){
   		scoreText.text = "Score: "+counter; 
 	}
 
+  //function to destroy line
+  function destroyLine(line){
+      line.destroy();
+  }
+
+  //moves line and checks loss condition every movement
+  function lineMove(){
+      line1.y-=40;
+      lossCheck();
+      console.log(line1.y)
+  }
+
+  //function to push line down
+  function lineDown(){
+    line1.y+=20;
+  }
+
+  //function for checking loss condition (if line is greater than game height)
+  function lossCheck(){
+    if (line1.y <= 0)
+        {
+            console.log("Sorry Game Over!")
+            console.log("Score: " + counter)
+            destroyLine(line1);
+        }
+  }
+
+
 	//Function that will be used to start the actual game upon clicking start in the game menu. 
 	function startGame(sprite){
 		game.time.events.remove(createMenuBubbles);
@@ -119,9 +151,16 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(1000, createSprite, this)
+		game.time.events.loop(500, createSprite, this)
 
-  	}
+    //creates the line and begins to move it up.
+    line1 = game.add.sprite(0, 1050, 'line1');
+    game.world.sendToBack(line1);
+    line1.scale.setTo(game.width, 1);
+    game.time.events.loop(1000, lineMove, 'line1');
+
+
+  }
 
   	//Function that will allow our users to login via a modal. 
   	function login(){
@@ -133,3 +172,5 @@ function create(){
   		console.log("testing functionality of the login function.,");
   	}
 }
+
+

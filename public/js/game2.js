@@ -326,7 +326,7 @@ function create(){
   		//3. Redirect back to main page. 
   		//4. Ensure that scores are being saved to the users profile. 
   		console.log("testing functionality of the login function.,");
-  		window.open = "https://www.google.com";
+  		window.location.href = "https://www.google.com";
   	}
 }
 

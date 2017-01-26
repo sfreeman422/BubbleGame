@@ -24,13 +24,15 @@ function preload(){
 	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 	//This preloads all of the assets that we will need for our game. 
-	game.load.image('bubble1', '../assets/pics/BS1.png');
+	game.load.image('bubble1', '../assets/pics/greensprite.png');
 	game.load.image('line1', '../assets/pics/line.png');
 	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
-	game.load.image('bubble2', '../assets/pics/bubble2.png');
-	game.load.image('bubble3', '../assets/pics/bubble3.png');
+	game.load.image('bubble2', '../assets/pics/yellowsprite.png');
+	game.load.image('bubble3', '../assets/pics/redsprite.png');
+	game.load.image('bubble4', '../assets/pics/tealsprite.png');
+	game.load.image('bubble5', '../assets/pics/purplesprite.png');
 }
 
 //Function to create game elements. 
@@ -84,7 +86,7 @@ function create(){
   	function createSprite(){
   		//Decides random scale for the bubble being created. 
     	var rand = game.rnd.realInRange(.3, .6);
-  		if(rand <= .4){
+  		if(rand <= .35){
   			var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1");
   			//Creates bubble with random size. 
     		bubble1.scale.setTo(rand, rand);
@@ -107,7 +109,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble1);
 	    	}
   		}
-  		else if(rand >=.401 && rand <=.5){
+  		else if(rand >=.351 && rand <=.400){
   			var bubble2 = sprites.create(game.world.randomX, game.world.randomY, "bubble2");
   			//Creates bubble with random size. 
     		bubble2.scale.setTo(rand, rand);
@@ -129,7 +131,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble2);
 	    	}
   		}
-    	else if(rand >=.501){
+    	else if(rand >=.451 && rand <= .500){
     		var bubble3 = sprites.create(game.world.randomX, game.world.randomY, "bubble3");
     		//Creates bubble with random size. 
     		bubble3.scale.setTo(rand, rand);
@@ -151,8 +153,53 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble3);
 	    	}
     	}
+    	else if(rand >=.501 && rand <=.550){
+    		var bubble4 = sprites.create(game.world.randomX, game.world.randomY, "bubble4");
+    		//Creates bubble with random size. 
+    		bubble4.scale.setTo(rand, rand);
+    		//Sets the area in which the object should collide. Similar to hitbox. 
+    		bubble4.body.setCircle(bubble4.width/2)
+    		//enables input on bubble sprites
+    		bubble4.inputEnabled = true;
+    		bubble4.body.setCollisionGroup(bubbleCollisionGroup);
+	    	bubble4.body.collides(bubbleCollisionGroup);
+	    	bubble4.body.velocity.x = 200;    
+	    	bubble4.body.velocity.y = 200;
+	    	bubble4.hitPoints = 3; 
+	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
+	    	if(gameStarted == true){
+		    	bubble4.events.onInputDown.add(destroySprite, this);
+	    	}
+	    	else{
+	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
+	    		menuBubblesOnScreen.push(bubble4);
+	    	}
+    	}
+    	else if(rand >=.551 && rand <=.600){
+    		var bubble5 = sprites.create(game.world.randomX, game.world.randomY, "bubble5");
+    		//Creates bubble with random size. 
+    		bubble5.scale.setTo(rand, rand);
+    		//Sets the area in which the object should collide. Similar to hitbox. 
+    		bubble5.body.setCircle(bubble5.width/2)
+    		//enables input on bubble sprites
+    		bubble5.inputEnabled = true;
+    		bubble5.body.setCollisionGroup(bubbleCollisionGroup);
+	    	bubble5.body.collides(bubbleCollisionGroup);
+	    	bubble5.body.velocity.x = 200;    
+	    	bubble5.body.velocity.y = 200;
+	    	bubble5.hitPoints = 4; 
+	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
+	    	if(gameStarted == true){
+		    	bubble5.events.onInputDown.add(destroySprite, this);
+	    	}
+	    	else{
+	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
+	    		menuBubblesOnScreen.push(bubble5);
+	    	}
+    	}
     	else{
     		console.log("Number generated was not between .2 and .5, it was: "+rand);
+    		console.log("This should generate a red bubble that hurts the user if they click it. ")
     	}
 
     	
@@ -185,6 +232,26 @@ function create(){
   				counter+=3; 
   				sprites.destroy();
   				lineDown(3);
+  			}
+  		}
+  		else if (sprites.key == 'bubble4'){
+  			if(sprites.hitPoints > 0){
+  				sprites.hitPoints -= 1; 
+  			}
+  			else if(sprites.hitPoints <= 0){
+  				counter+=4; 
+  				sprites.destroy();
+  				lineDown(4);
+  			}
+  		}
+  		else if (sprites.key == 'bubble5'){
+  			if(sprites.hitPoints > 0){
+  				sprites.hitPoints -= 1; 
+  			}
+  			else if(sprites.hitPoints <= 0){
+  				counter+=5; 
+  				sprites.destroy();
+  				lineDown(5);
   			}
   		}
   		scoreText.text = "Score: "+counter; 

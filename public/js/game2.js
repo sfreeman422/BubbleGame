@@ -1,6 +1,6 @@
 //Instantiates a new Phase Game object with a resolution of 800x600, using Phase.auto as a renderer (ues openGL first, if that fails it falls back to canvas), 
 //sets the div to bind to to game. Loads the preloader and create functions. 
-var game = new Phaser.Game(window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, Phaser.AUTO, 'game', { preload: preload, create: create});
+var game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'game', { preload: preload, create: create});
 
 //Global variables. 
 var w = game._width;
@@ -23,12 +23,12 @@ function preload(){
 	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 	//This preloads all of the assets that we will need for our game. 
-	game.load.image('bubble1', '../assets/pics/bubble.png');
+	game.load.image('bubble1', '../assets/pics/BS1.png');
 	game.load.image('line1', '../assets/pics/line.png');
 	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
-	game.load.image('bubble2', '../assets/pics/bubble2.png');
+	game.load.image('bubble2', '../assets/pics/TS1.png');
 	game.load.image('bubble3', '../assets/pics/bubble3.png');
 }
 
@@ -59,14 +59,14 @@ function create(){
 	//Show a start game sprite, that when clicked will allow us to start the game. 
 	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.15), 'startButton');
 	startButton.anchor.setTo(0.5);
-	startButton.scale.setTo(scaleRatio, scaleRatio);
+	startButton.scale.setTo(.5, .5);
 	startButton.inputEnabled = true; 
 	startButton.events.onInputUp.add(startGame, this);
 
 	//Show a login to game sprite, that when clicked will allow us to login. 
-	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.3), 'loginButton');
+	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.4), 'loginButton');
 	loginButton.anchor.setTo(0.5);
-	loginButton.scale.setTo(scaleRatio, scaleRatio);
+	loginButton.scale.setTo(.5, .5);
 	loginButton.inputEnabled = true; 
 	loginButton.events.onInputUp.add(login);
 
@@ -219,7 +219,7 @@ function create(){
 		game.time.events.loop(500, createSprite, this)
 
     //creates the line and begins to move it up.
-    line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
+    line1 = game.add.sprite(0, 1080, 'line1');
     game.world.sendToBack(line1);
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');

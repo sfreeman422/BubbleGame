@@ -79,7 +79,6 @@ function create(){
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 	//Function that will be used to create bubble sprites for the menu background. 
 	//THIS SHOULD BE REPLACED WITH A CONSTRUCTOR CUZ THIS IS HORRIBLY INEFFICIENT!!!
   	function createSprite(){
@@ -98,6 +97,7 @@ function create(){
 	    	bubble1.body.collides(bubbleCollisionGroup);
 	    	bubble1.body.velocity.x = 200;    
 	    	bubble1.body.velocity.y = 200;
+	    	bubble1.hitPoints = 1; 
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble1.events.onInputDown.add(destroySprite, this);
@@ -119,6 +119,7 @@ function create(){
 	    	bubble2.body.collides(bubbleCollisionGroup);
 	    	bubble2.body.velocity.x = 200;    
 	    	bubble2.body.velocity.y = 200;
+	    	bubble2.hitPoints = 1; 
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble2.events.onInputDown.add(destroySprite, this);
@@ -140,6 +141,7 @@ function create(){
 	    	bubble3.body.collides(bubbleCollisionGroup);
 	    	bubble3.body.velocity.x = 200;    
 	    	bubble3.body.velocity.y = 200;
+	    	bubble3.hitPoints = 2; 
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble3.events.onInputDown.add(destroySprite, this);
@@ -160,18 +162,30 @@ function create(){
   	//Each bubble is popped and adjusts score/lineDown based on how big the bubble was. 
 	function destroySprite(sprites){
 		console.log(sprites);
-		sprites.destroy();
   		if(sprites.key == 'bubble1'){
   			counter++;
+  			sprites.destroy();
   			lineDown(1);
   		}
   		else if (sprites.key == 'bubble2'){
-  			counter+=2;
-  			lineDown(2);
+  			if(sprites.hitPoints > 0){
+  				sprites.hitPoints -= 1; 
+  			}
+  			else if(sprites.hitPoints <= 0){
+  				counter+=2;
+  				sprites.destroy();
+  				lineDown(2);
+  			}
   		}
   		else if (sprites.key == 'bubble3'){
-  			counter+=3; 
-  			lineDown(3);
+  			if(sprites.hitPoints > 0){
+  				sprites.hitPoints -= 1; 
+  			}
+  			else if(sprites.hitPoints <= 0){
+  				counter+=3; 
+  				sprites.destroy();
+  				lineDown(3);
+  			}
   		}
   		scoreText.text = "Score: "+counter; 
 	}
@@ -226,7 +240,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(500, createSprite, this)
+		game.time.events.loop(1000, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');

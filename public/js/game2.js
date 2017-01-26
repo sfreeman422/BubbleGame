@@ -16,6 +16,7 @@ var loginButton;
 var menuBubblesOnScreen = [];
 var line1;
 var lineLoop; 
+var lineSpeed=.001;
 
 //Function to load the sprites before we start the game. 
 function preload(){
@@ -64,7 +65,7 @@ function create(){
 	startButton.events.onInputUp.add(startGame, this);
 
 	//Show a login to game sprite, that when clicked will allow us to login. 
-	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.3), 'loginButton');
+	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.4), 'loginButton');
 	loginButton.anchor.setTo(0.5);
 	loginButton.scale.setTo(scaleRatio, scaleRatio);
 	loginButton.inputEnabled = true; 
@@ -83,13 +84,13 @@ function create(){
 	//THIS SHOULD BE REPLACED WITH A CONSTRUCTOR CUZ THIS IS HORRIBLY INEFFICIENT!!!
   	function createSprite(){
   		//Decides random scale for the bubble being created. 
-    	var rand = game.rnd.realInRange(.2, .5);
-  		if(rand <= .3){
+    	var rand = game.rnd.realInRange(.3, .6);
+  		if(rand <= .4){
   			var bubble1 = sprites.create(game.world.randomX, game.world.randomY, "bubble1");
   			//Creates bubble with random size. 
     		bubble1.scale.setTo(rand, rand);
     		//Sets the area in which the object should collide. Similar to hitbox. 
-    		bubble1.body.setCircle(50)
+    		bubble1.body.setCircle(bubble1.width/2)
     		//enables input on bubble sprites
     		bubble1.inputEnabled = true;
     		//sets bubble collision group and initial velocity
@@ -106,12 +107,12 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble1);
 	    	}
   		}
-  		else if(rand >=.301 && rand <=.4){
+  		else if(rand >=.401 && rand <=.5){
   			var bubble2 = sprites.create(game.world.randomX, game.world.randomY, "bubble2");
   			//Creates bubble with random size. 
     		bubble2.scale.setTo(rand, rand);
     		//Sets the area in which the object should collide. Similar to hitbox. 
-    		bubble2.body.setCircle(50)
+    		bubble2.body.setCircle(bubble2.width/2)
     		//enables input on bubble sprites
     		bubble2.inputEnabled = true;
     		bubble2.body.setCollisionGroup(bubbleCollisionGroup);
@@ -127,12 +128,12 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble2);
 	    	}
   		}
-    	else if(rand >=.401){
+    	else if(rand >=.501){
     		var bubble3 = sprites.create(game.world.randomX, game.world.randomY, "bubble3");
     		//Creates bubble with random size. 
     		bubble3.scale.setTo(rand, rand);
     		//Sets the area in which the object should collide. Similar to hitbox. 
-    		bubble3.body.setCircle(50)
+    		bubble3.body.setCircle(bubble3.width/2)
     		//enables input on bubble sprites
     		bubble3.inputEnabled = true;
     		bubble3.body.setCollisionGroup(bubbleCollisionGroup);
@@ -183,13 +184,18 @@ function create(){
 
   //moves line up .1% and checks loss condition every movement
   function lineMove(){
-      line1.y-=(game.world._height*.001);
+      line1.y-=(window.innerHeight*lineSpeed);
       lossCheck();
   }
 
   //function to push line down 1% * the multiplier provided by the bubble in destroySprite.
   function lineDown(multiplier){
-    line1.y+=((window.innerWidth*.01)*multiplier);
+    if (line1.y>=window.innerHeight*window.devicePixelRatio){
+      line1.y=window.innerHeight*window.devicePixelRatio-5
+    }
+    else{
+    line1.y+=((window.innerHeight*.02)*multiplier);
+    }
   }
 
   //function for checking loss condition (if line is greater than game height)
@@ -200,6 +206,10 @@ function create(){
             console.log("Score: " + counter)
             destroyLine(line1);
         }
+  }
+
+  function lineSpeedIncrease(){
+    lineSpeed+=.001
   }
 
 
@@ -216,7 +226,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(500, createSprite, this)
+		game.time.events.loop(300, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
@@ -224,7 +234,7 @@ function create(){
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
-
+    game.time.events.loop(5000, lineSpeedIncrease)
   }
 
   	//Function that will allow our users to login via a modal. 

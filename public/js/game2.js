@@ -131,7 +131,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble2);
 	    	}
   		}
-    	else if(rand >=.451 && rand <= .500){
+    	else if(rand >=.401 && rand <= .450){
     		var bubble3 = sprites.create(game.world.randomX, game.world.randomY, "bubble3");
     		//Creates bubble with random size. 
     		bubble3.scale.setTo(rand, rand);
@@ -153,7 +153,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble3);
 	    	}
     	}
-    	else if(rand >=.501 && rand <=.550){
+    	else if(rand >=.451 && rand <=.500){
     		var bubble4 = sprites.create(game.world.randomX, game.world.randomY, "bubble4");
     		//Creates bubble with random size. 
     		bubble4.scale.setTo(rand, rand);
@@ -175,7 +175,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble4);
 	    	}
     	}
-    	else if(rand >=.551 && rand <=.600){
+    	else if(rand >=.501 && rand <=.550){
     		var bubble5 = sprites.create(game.world.randomX, game.world.randomY, "bubble5");
     		//Creates bubble with random size. 
     		bubble5.scale.setTo(rand, rand);
@@ -198,7 +198,7 @@ function create(){
 	    	}
     	}
     	else{
-    		console.log("Number generated was not between .2 and .5, it was: "+rand);
+    		console.log("Number generated was not between .3 and .550, it was: "+rand);
     		console.log("This should generate a red bubble that hurts the user if they click it. ")
     	}
 

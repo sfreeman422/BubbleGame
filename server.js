@@ -32,6 +32,7 @@ app.use(passport.session());
 //Flash messages stored in a session
 app.use(flash());
 
+//Need to remove this to take advantage of the routes in the routes.js file. 
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Requires the routes for our app AND for passport. 

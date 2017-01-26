@@ -2,7 +2,7 @@ module.exports = function(app, passport){
 	var path = require('path');
 	//Handles a user's first visit to the page
 	app.get("/", function(req, res){
-	res.sendFile(path.resolve("public/signup.html"));
+		res.sendFile(path.resolve("public/login.html"));
 	});
 	//Handles a user trying to get to the login page. Sends them the page. 
 	app.get("/login", function(req, res){

@@ -219,7 +219,7 @@ function create(){
 		game.time.events.loop(500, createSprite, this)
 
     //creates the line and begins to move it up.
-    line1 = game.add.sprite(0, 1050, 'line1');
+    line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
     game.world.sendToBack(line1);
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');

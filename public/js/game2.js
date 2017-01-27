@@ -27,15 +27,15 @@ function preload(){
   game.load.image("background", '../assets/pics/bg2.jpg');
 
 	//This preloads all of the assets that we will need for our game. 
-	game.load.image('bubble1', '../assets/pics/greensprite.png');
+	game.load.image('bubble1', '../assets/pics/1layer.png');
 	game.load.image('line1', '../assets/pics/line.png');
 	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
-	game.load.image('bubble2', '../assets/pics/yellowsprite.png');
-	game.load.image('bubble3', '../assets/pics/redsprite.png');
-	game.load.image('bubble4', '../assets/pics/tealsprite.png');
-	game.load.image('bubble5', '../assets/pics/purplesprite.png');
+	game.load.image('bubble2', '../assets/pics/2layer.png');
+	game.load.image('bubble3', '../assets/pics/3layer.png');
+	game.load.image('bubble4', '../assets/pics/4layer.png');
+	game.load.image('bubble5', '../assets/pics/5layer.png');
   game.load.image('logo', '../assets/pics/logo.png');
 }
 

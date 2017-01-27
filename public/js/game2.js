@@ -222,7 +222,6 @@ function create(){
   	//Function to destroy a sprite. This will be used to pop bubbles and track the score. 
   	//Each bubble is popped and adjusts score/lineDown based on how big the bubble was. 
 	function destroySprite(sprites){
-		console.log(sprites);
   		if(sprites.key == 'bubble1'){
   			counter++;
   			sprites.destroy();
@@ -383,6 +382,9 @@ function create(){
   		});
   		//Shows the modal we just created. 
   		reg.modal.showModal('gameOverModal');
+  		//Post request to save our score to the database. 
+  		$.post( "/saveScore", {userScore: counter});
+
   	}
 
 

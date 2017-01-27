@@ -44,6 +44,11 @@ module.exports = function(app, passport){
 		req.logout();
 		res.redirect('/');
 	});
+	//Save score to DB.
+	app.post("/saveScore", function(req, res){
+		console.log(req.body);
+		console.log("Should be saving score of: "+req.body.userScore);
+	})
 	//Functino to make sure a user is logged in. 
 	function isLoggedIn(req, res, next){
 		//If a user is authenticated, do the thing they wanna do. 

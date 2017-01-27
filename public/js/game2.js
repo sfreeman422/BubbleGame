@@ -17,8 +17,9 @@ var menuBubblesOnScreen = [];
 var line1;
 var lineLoop; 
 var lineSpeed=.001;
+//Used to create and utilize the gameoverModal. 
 var reg = {};
-
+var spritesheetAnimation;
 
 //Function to load the sprites before we start the game. 
 function preload(){

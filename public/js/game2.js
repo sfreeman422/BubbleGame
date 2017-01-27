@@ -306,7 +306,7 @@ function create(){
   }
 
   function lineSpeedIncrease(){
-    lineSpeed+=.001
+    lineSpeed+=.0005
   }
 
 
@@ -323,7 +323,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(1000, createSprite, this)
+		game.time.events.loop(500, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
@@ -333,7 +333,7 @@ function create(){
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
-    game.time.events.loop(5000, lineSpeedIncrease)
+    game.time.events.loop(10000, lineSpeedIncrease)
   }
 
   	//Function that will allow our users to login via a modal. 

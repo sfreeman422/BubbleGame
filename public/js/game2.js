@@ -33,6 +33,7 @@ function preload(){
 	game.load.image('bubble3', '../assets/pics/redsprite.png');
 	game.load.image('bubble4', '../assets/pics/tealsprite.png');
 	game.load.image('bubble5', '../assets/pics/purplesprite.png');
+  game.load.image('logo', '../assets/pics/logo.png');
 }
 
 //Function to create game elements. 
@@ -56,18 +57,18 @@ function create(){
 
 
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
-	headline = game.add.text(game.world.centerX, game.world.centerY-(game.world.centerY*0.1), 'Bubble Game', {fill: '#ffffff', font: '72px arial'});
+	headline = game.add.sprite(game.world.centerX, game.world.centerY-(game.world.centerY*0.3), 'logo');
 	headline.anchor.setTo(0.5);
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
-	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.15), 'startButton');
+	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.18), 'startButton');
 	startButton.anchor.setTo(0.5);
 	startButton.scale.setTo(scaleRatio, scaleRatio);
 	startButton.inputEnabled = true; 
 	startButton.events.onInputUp.add(startGame, this);
 
 	//Show a login to game sprite, that when clicked will allow us to login. 
-	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.4), 'loginButton');
+	loginButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.5), 'loginButton');
 	loginButton.anchor.setTo(0.5);
 	loginButton.scale.setTo(scaleRatio, scaleRatio);
 	loginButton.inputEnabled = true; 

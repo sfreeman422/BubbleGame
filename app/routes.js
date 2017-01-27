@@ -1,5 +1,7 @@
 module.exports = function(app, passport){
 	var path = require('path');
+	var mongoose = require('mongoose');
+	var User = require('./models/User.js')
 	//Handles a user's first visit to the page
 	app.get("/", function(req, res){
 		res.sendFile(path.resolve("public/login.html"));
@@ -44,6 +46,27 @@ module.exports = function(app, passport){
 		req.logout();
 		res.redirect('/');
 	});
+	//Save score to DB.
+	app.post("/saveScore", function(req, res){
+		console.log(req.body);
+		//If the user is logged in, save to that users document in the mongoDB
+		if(req.user){
+			console.log("Should be saving score of: "+req.body.userScore+" for "+req.user.facebook.name);
+			var userID = req.user._id;
+			var newHighScore = req.body.userScore;
+			User.findOneAndUpdate({_id: userID}, {score: newHighScore}, {new: true}, function(err, doc){
+				if(err){
+					console.log(err);
+				}
+				console.log(doc);
+			})
+		}
+		//If the user is not logged in, we can't save because they are a guest. 
+		else{
+			console.log("Playing as a guest, unable to save score of: "+req.body.userScore+" for "+req.user);
+		}
+		
+	})
 	//Functino to make sure a user is logged in. 
 	function isLoggedIn(req, res, next){
 		//If a user is authenticated, do the thing they wanna do. 

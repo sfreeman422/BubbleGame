@@ -17,6 +17,9 @@ var menuBubblesOnScreen = [];
 var line1;
 var lineLoop; 
 var lineSpeed=.001;
+//Used to create and utilize the gameoverModal. 
+var reg = {};
+var spritesheetAnimation;
 
 //Function to load the sprites before we start the game. 
 function preload(){
@@ -31,19 +34,21 @@ function preload(){
 	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
-  game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
+	game.load.atlasJSONArray('colorspritesheet', '../assets/pics/colorsprites/colorspritesheet.png', '../assets/pics/colorsprites/colorspritesheet.json')
+    game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
 	game.load.image('bubble2', '../assets/pics/colorsprites/2layer.png');
 	game.load.image('bubble3', '../assets/pics/colorsprites/3layer.png');
 	game.load.image('bubble4', '../assets/pics/colorsprites/4layer.png');
 	game.load.image('bubble5', '../assets/pics/colorsprites/5layer.png');
-  game.load.image('logo', '../assets/pics/logo2.png');
+    game.load.image('logo', '../assets/pics/logo2.png');
+    game.load.image('gameOverPicture', '../assets/pics/gameover.png');
+    game.load.image('playAgain', '../assets/pics/playagainbutton.png');
 }
 
 //Function to create game elements. 
 function create(){
-  //background image
-  var background = game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
-  
+  	//background image
+  	var background = game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
@@ -66,7 +71,7 @@ function create(){
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
 	headline = game.add.sprite(game.world.centerX, game.world.centerY-(game.world.centerY*0.2), 'logo');
 	headline.anchor.setTo(0.5);
-  headline.scale.setTo(window.devicePixelRatio/6, window.devicePixelRatio/6);
+	headline.scale.setTo(window.devicePixelRatio/6, window.devicePixelRatio/6);
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
 	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.18), 'startButton');
@@ -217,7 +222,6 @@ function create(){
   	//Function to destroy a sprite. This will be used to pop bubbles and track the score. 
   	//Each bubble is popped and adjusts score/lineDown based on how big the bubble was. 
 	function destroySprite(sprites){
-		console.log(sprites);
   		if(sprites.key == 'bubble1'){
   			counter++;
   			sprites.destroy();
@@ -295,11 +299,13 @@ function create(){
             console.log("Sorry Game Over!")
             console.log("Score: " + counter)
             destroyLine(line1);
+            game.paused = true; 
+            gameOverScreen();
         }
   }
 
   function lineSpeedIncrease(){
-    lineSpeed+=.001
+    lineSpeed+=.0005
   }
 
 
@@ -316,7 +322,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(1000, createSprite, this)
+		game.time.events.loop(500, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
@@ -326,7 +332,7 @@ function create(){
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
-    game.time.events.loop(5000, lineSpeedIncrease)
+    game.time.events.loop(10000, lineSpeedIncrease)
   }
 
   	//Function that will allow our users to login via a modal. 
@@ -340,6 +346,50 @@ function create(){
   		$('#myModal').modal('show');
   		
   	}
+
+  	//Game over modal for gameover scenario.
+  	function gameOverScreen(){
+  		//Initiate the modal class. 
+  		reg.modal = new gameModal(game);
+  		//Define the new Modal.
+  		reg.modal.createModal({
+  			type: "gameOverModal",
+  			includeBackground: true,
+  			modalCloseOnInput: true,
+  			itemsArr: [{
+  				type: "image",
+  				content: "gameOverPicture",
+  				offsetY: -110,
+  				contentScale: 0.6
+
+  			},
+  			{
+  				type: "text",
+  				content: "Your final score was "+counter,
+
+  			},
+  			{
+  				type: "image",
+  				content: "playAgain",
+  				offsetY: 100,
+  				offsetX: -80,
+  				contentScale: 0.6,
+  				callback: function(){
+  					//Reset game parameters.
+  					console.log("Function to reset the game params and start new.")
+  					alert("this should restart the game");
+  				}
+  			}]
+  		});
+  		//Shows the modal we just created. 
+  		reg.modal.showModal('gameOverModal');
+  		//Post request to save our score to the database. 
+  		$.post( "/saveScore", {userScore: counter});
+
+  	}
+
+
+
 }
 
 

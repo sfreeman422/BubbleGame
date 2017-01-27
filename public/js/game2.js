@@ -42,9 +42,7 @@ function preload(){
 	game.load.image('bubble5', '../assets/pics/colorsprites/5layer.png');
     game.load.image('logo', '../assets/pics/logo2.png');
     game.load.image('gameOverPicture', '../assets/pics/gameover.png');
-    game.load.image('tryAgainPicture', '../assets/pics/tryagain.png');
-    game.load.image('yes', '../assets/pics/yes.png');
-    game.load.image('no', '../assets/pics/no.png');
+    game.load.image('playAgain', '../assets/pics/playagainbutton.png');
 }
 
 //Function to create game elements. 
@@ -373,29 +371,13 @@ function create(){
   			},
   			{
   				type: "image",
-  				content: "tryAgainPicture",
-  				contentScale: 0.6
-  			},
-  			{
-  				type: "image",
-  				content: "yes",
+  				content: "playAgain",
   				offsetY: 100,
   				offsetX: -80,
   				contentScale: 0.6,
   				callback: function(){
   					//Reset game parameters.
   					console.log("Function to reset the game params and start new.")
-  				}
-  			},
-  			{
-  				type: "image",
-  				content: "no",
-  				offsetY: 100,
-  				offsetX: 80,
-  				contentScale: 0.6,
-  				callback: function(){
-  					//Do something when the player doesnt wanna continue.
-  					console.log("Function to do somethign when the player doesnt wanna continue.")
   				}
   			}]
   		});

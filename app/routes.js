@@ -48,7 +48,13 @@ module.exports = function(app, passport){
 	//Save score to DB.
 	app.post("/saveScore", function(req, res){
 		console.log(req.body);
-		console.log("Should be saving score of: "+req.body.userScore);
+		if(req.user){
+			console.log("Should be saving score of: "+req.body.userScore+" for "+req.user);
+		}
+		else{
+			console.log("Playing as a guest, unable to save score of: "+req.body.userScore+" for "+req.user);
+		}
+		
 	})
 	//Functino to make sure a user is logged in. 
 	function isLoggedIn(req, res, next){

@@ -33,6 +33,7 @@ function preload(){
 	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
+	game.load.atlasJSONArray('colorspritesheet', 'colorspritesheet.png', 'colorspritesheet.json')
     game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
 	game.load.image('bubble2', '../assets/pics/colorsprites/2layer.png');
 	game.load.image('bubble3', '../assets/pics/colorsprites/3layer.png');

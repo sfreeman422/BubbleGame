@@ -1,3 +1,3 @@
 module.exports = {
-	'url': "localhost:27017/BubbleGame"
+	'url': "mongodb://test:test123@ds131729.mlab.com:31729/bubble"
 }

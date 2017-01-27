@@ -59,6 +59,7 @@ function create(){
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 
 	headline = game.add.sprite(game.world.centerX, game.world.centerY-(game.world.centerY*0.3), 'logo');
 	headline.anchor.setTo(0.5);
+  headline.scale.setTo(scaleRatio, scaleRatio);
 
 	//Show a start game sprite, that when clicked will allow us to start the game. 
 	startButton = game.add.sprite(game.world.centerX, game.world.centerY+(game.world.centerY*0.18), 'startButton');

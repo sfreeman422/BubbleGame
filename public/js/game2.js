@@ -377,6 +377,7 @@ function create(){
   				callback: function(){
   					//Reset game parameters.
   					console.log("Function to reset the game params and start new.")
+  					alert("this should restart the game");
   				}
   			}]
   		});

@@ -23,6 +23,9 @@ function preload(){
 	//This allows the game to fully fit the screen and scale accordingly
 	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
+  //background image
+  game.load.image("background", '../assets/pics/bg2.jpg');
+
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('bubble1', '../assets/pics/greensprite.png');
 	game.load.image('line1', '../assets/pics/line.png');
@@ -38,6 +41,9 @@ function preload(){
 
 //Function to create game elements. 
 function create(){
+  //background image
+  game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
+
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 	//start p2 physics and collision groups. 

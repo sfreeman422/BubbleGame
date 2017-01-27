@@ -42,7 +42,8 @@ function preload(){
 //Function to create game elements. 
 function create(){
   //background image
-  game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
+  var background = game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
+  
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
@@ -320,6 +321,8 @@ function create(){
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
     game.world.sendToBack(line1);
+    //sends background to back
+    game.world.sendToBack(background);
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 

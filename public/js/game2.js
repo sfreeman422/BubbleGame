@@ -60,7 +60,7 @@ function create(){
 	sprites.physicsBodyType = Phaser.Physics.P2JS;
 	
 	//runs the createSprite function every second for our background.
-	var createMenuBubbles = game.time.events.loop(1000, createSprite, this);
+	var createMenuBubbles = game.time.events.loop(3000, createSprite, this);
 
 
 	//Show a headline for our game. This will likely be changed to a sprite for a real logo. 

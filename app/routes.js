@@ -1,5 +1,6 @@
 module.exports = function(app, passport){
 	var path = require('path');
+	var mongoose = require('mongoose');
 	//Handles a user's first visit to the page
 	app.get("/", function(req, res){
 		res.sendFile(path.resolve("public/login.html"));

@@ -36,7 +36,7 @@ function preload(){
 	game.load.image('bubble3', '../assets/pics/3layer.png');
 	game.load.image('bubble4', '../assets/pics/4layer.png');
 	game.load.image('bubble5', '../assets/pics/5layer.png');
-  game.load.image('logo', '../assets/pics/logo.png');
+  game.load.image('logo', '../assets/pics/logo2.png');
 }
 
 //Function to create game elements. 

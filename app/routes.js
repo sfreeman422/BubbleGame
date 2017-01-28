@@ -59,11 +59,13 @@ module.exports = function(app, passport){
 					console.log(err);
 				}
 				console.log(doc);
-			})
+			});
+			res.end();
 		}
 		//If the user is not logged in, we can't save because they are a guest. 
 		else{
 			console.log("Playing as a guest, unable to save score of: "+req.body.userScore+" for "+req.user);
+			res.end();
 		}
 		
 	})

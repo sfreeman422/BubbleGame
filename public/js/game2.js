@@ -56,9 +56,9 @@ function preload(){
 //Function to create game elements. 
 function create(){
   	//background image
-  	background1 = game.add.sprite(0, 0, 'background');
-    background1.height=window.innerHeight*window.devicePixelRatio;
-    background1.width=window.innerWidth*window.devicePixelRatio;
+  	background1 = game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
+    // background1.height=window.innerHeight*window.devicePixelRatio;
+    // background1.width=window.innerWidth*window.devicePixelRatio;
     // background2 = game.add.sprite(0, 0, 'backgroundOverlay');
     // background2.height=window.innerHeight*window.devicePixelRatio;
     // background2.width=window.innerWidth*window.devicePixelRatio;

@@ -57,6 +57,7 @@ function create(){
     background1.width=window.innerWidth*window.devicePixelRatio;
     background2 = game.add.sprite(0, 0, 'backgroundOverlay');
     background2.height=window.innerHeight*window.devicePixelRatio;
+    background2.width=window.innerWidth*window.devicePixelRatio;
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });

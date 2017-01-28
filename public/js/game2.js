@@ -64,7 +64,7 @@ function create(){
     // background2.width=window.innerWidth*window.devicePixelRatio;
 
 	//Will hold our score value. 
-	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
+	scoreText = game.add.text(1, 1, '', { font: "72px Arial", fill: '#ffffff' });
 	//start p2 physics and collision groups. 
 	game.physics.startSystem(Phaser.Physics.P2JS);
  	game.physics.p2.setImpactEvents(true);
@@ -403,7 +403,7 @@ function create(){
   			{
   				type: "text",
   				content: "Your final score was "+counter,
-  				color: 'white'
+  				color: 'FFFFFF'
   			},
   			{
   				type: "image",

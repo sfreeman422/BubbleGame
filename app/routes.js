@@ -50,8 +50,35 @@ module.exports = function(app, passport){
 	app.post("/saveScore", function(req, res){
 		console.log(req.body);
 		//If the user is logged in, save to that users document in the mongoDB
-		if(req.user){
+		if(req.user.facebook){
+			console.log(req.user);
 			console.log("Should be saving score of: "+req.body.userScore+" for "+req.user.facebook.name);
+			var userID = req.user._id;
+			var newHighScore = req.body.userScore;
+			User.findOneAndUpdate({_id: userID}, {score: newHighScore}, {new: true}, function(err, doc){
+				if(err){
+					console.log(err);
+				}
+				console.log(doc);
+			});
+			res.end();
+		}
+		else if(req.user.twitter){
+			console.log(req.user);
+			console.log("Should be saving score of: "+req.body.userScore+" for "+req.user.twitter.displayName);
+			var userID = req.user._id;
+			var newHighScore = req.body.userScore;
+			User.findOneAndUpdate({_id: userID}, {score: newHighScore}, {new: true}, function(err, doc){
+				if(err){
+					console.log(err);
+				}
+				console.log(doc);
+			});
+			res.end();
+		}
+		else if(req.user.local){
+			console.log(req.user);
+			console.log("Should be saving score of: "+req.body.userScore+" for "+req.user.local.email);
 			var userID = req.user._id;
 			var newHighScore = req.body.userScore;
 			User.findOneAndUpdate({_id: userID}, {score: newHighScore}, {new: true}, function(err, doc){

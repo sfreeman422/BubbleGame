@@ -37,10 +37,8 @@ function preload(){
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('line1', '../assets/pics/line.png');
-	game.load.image('menu', '../assets/pics/menu.jpg')
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
-	game.load.atlasJSONArray('colorspritesheet', '../assets/pics/colorsprites/colorspritesheet.png', '../assets/pics/colorsprites/colorspritesheet.json')
   	game.load.image('bubble1', '../assets/pics/colorsprites2/1layer.png');
 	game.load.image('bubble2', '../assets/pics/colorsprites2/2layer.png');
 	game.load.image('bubble3', '../assets/pics/colorsprites2/3layer.png');

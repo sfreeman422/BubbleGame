@@ -55,10 +55,10 @@ function preload(){
 function create(){
   	//background image
   	background1 = game.add.sprite(0, 0, 'background');
-    background1.height=game.height;
-    background1.width=game.width;
+    background1.height=window.innerHeight*window.devicePixelRatio;
+    background1.width=window.innerWidth*window.devicePixelRatio;
     background2 = game.add.sprite(0, 0, 'backgroundOverlay');
-    background2.height=game.height;
+    background2.height=window.innerHeight*window.devicePixelRatio;
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });

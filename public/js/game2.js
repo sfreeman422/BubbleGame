@@ -21,6 +21,10 @@ var lineSpeed=.001;
 var bubbleSpeed=800;
 var background1;
 var background2;
+var gameBubbleLoop;
+var gameBubbleSpeedUpLoop;
+var gameBubbleLogSpeedLoop;
+var lineSpeedIncreaseLoop;
 
 //Used to create and utilize the gameoverModal. 
 var reg = {};
@@ -342,7 +346,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(bubbleSpeed, createSprite, this)
+		gameBubbleLoop = game.time.events.loop(bubbleSpeed, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
@@ -357,10 +361,10 @@ function create(){
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
-    game.time.events.loop(10000, bubbleSpeedUp)
-    game.time.events.loop(10000, logSpeed)
+    gameBubbleSpeedUpLoop = game.time.events.loop(10000, bubbleSpeedUp)
+    gameBubbleLogSpeedLoop = game.time.events.loop(10000, logSpeed)
 
-    game.time.events.loop(8000, lineSpeedIncrease)
+    lineSpeedIncreaseLoop = game.time.events.loop(8000, lineSpeedIncrease)
   }
 
   function logSpeed(){
@@ -410,6 +414,10 @@ function create(){
   				callback: function(){
   					//Reset game parameters.
   					counter = 0; 
+  					game.time.events.remove(gameBubbleLoop);
+  					game.time.events.remove(gameBubbleSpeedUpLoop);
+  					game.time.events.remove(gameBubbleLogSpeedLoop);
+  					game.time.events.remove(lineSpeedIncreaseLoop);
   					bubbleSpeed = 800;
   					lineSpeed = .001;
   					reg.modal.hideModal('gameOverModal');

@@ -322,9 +322,9 @@ function create(){
       bubbleSpeed-=100
   }
 
-  function backgroundMoveLeft(){
-    background2.x -= (window.innerWidth*0.0008);
-  }
+  // function backgroundMoveLeft(){
+  //   background2.x -= (window.innerWidth*0.0008);
+  // }
 
 
 	//Function that will be used to start the actual game upon clicking start in the game menu. 
@@ -352,7 +352,7 @@ function create(){
     game.world.sendToBack(background1);
 
     //moves background overlay left
-    game.time.events.loop(100, backgroundMoveLeft);
+    // game.time.events.loop(100, backgroundMoveLeft);
 
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');

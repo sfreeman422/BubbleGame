@@ -19,6 +19,9 @@ var line1;
 var lineLoop; 
 var lineSpeed=.001;
 var bubbleSpeed=800;
+var background1;
+var background2;
+
 //Used to create and utilize the gameoverModal. 
 var reg = {};
 var spritesheetAnimation;
@@ -30,7 +33,7 @@ function preload(){
 
   	//background image
   	game.load.image("background", '../assets/pics/bg2.jpg');
-  	game.load.image("background", '../assets/pics/bg3.jpg');
+  	game.load.image("backgroundOverlay", '../assets/pics/bg5.png');
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('line1', '../assets/pics/line.png');
@@ -51,7 +54,11 @@ function preload(){
 //Function to create game elements. 
 function create(){
   	//background image
-  	var background = game.add.tileSprite(0, 0, window.innerWidth*window.devicePixelRatio, window.innerHeight*window.devicePixelRatio, 'background');
+  	background1 = game.add.sprite(0, 0, 'background');
+    background1.height=game.height;
+    background1.width=game.width;
+    background2 = game.add.sprite(0, 0, 'backgroundOverlay');
+    background2.height=game.height;
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
@@ -316,6 +323,10 @@ function create(){
       bubbleSpeed-=100
   }
 
+  function backgroundMoveLeft(){
+    background2.x -= (window.innerWidth*0.0008);
+  }
+
 
 	//Function that will be used to start the actual game upon clicking start in the game menu. 
 	function startGame(sprite){
@@ -338,7 +349,12 @@ function create(){
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
     game.world.sendToBack(line1);
     //sends background to back
-    game.world.sendToBack(background);
+    game.world.sendToBack(background2);
+    game.world.sendToBack(background1);
+
+    //moves background overlay left
+    game.time.events.loop(100, backgroundMoveLeft);
+
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 

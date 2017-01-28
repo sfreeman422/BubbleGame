@@ -55,9 +55,9 @@ function create(){
   	background1 = game.add.sprite(0, 0, 'background');
     background1.height=window.innerHeight*window.devicePixelRatio;
     background1.width=window.innerWidth*window.devicePixelRatio;
-    background2 = game.add.sprite(0, 0, 'backgroundOverlay');
-    background2.height=window.innerHeight*window.devicePixelRatio;
-    background2.width=window.innerWidth*window.devicePixelRatio;
+    // background2 = game.add.sprite(0, 0, 'backgroundOverlay');
+    // background2.height=window.innerHeight*window.devicePixelRatio;
+    // background2.width=window.innerWidth*window.devicePixelRatio;
 
 	//Will hold our score value. 
 	scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
@@ -348,7 +348,7 @@ function create(){
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
     game.world.sendToBack(line1);
     //sends background to back
-    game.world.sendToBack(background2);
+   // game.world.sendToBack(background2);
     game.world.sendToBack(background1);
 
     //moves background overlay left

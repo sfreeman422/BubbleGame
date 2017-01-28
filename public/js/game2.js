@@ -37,11 +37,11 @@ function preload(){
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
 	game.load.atlasJSONArray('colorspritesheet', '../assets/pics/colorsprites/colorspritesheet.png', '../assets/pics/colorsprites/colorspritesheet.json')
-  game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
-	game.load.image('bubble2', '../assets/pics/colorsprites/2layer.png');
-	game.load.image('bubble3', '../assets/pics/colorsprites/3layer.png');
-	game.load.image('bubble4', '../assets/pics/colorsprites/4layer.png');
-	game.load.image('bubble5', '../assets/pics/colorsprites/5layer.png');
+  game.load.image('bubble1', '../assets/pics/colorsprites2/1layer.png');
+	game.load.image('bubble2', '../assets/pics/colorsprites2/2layer.png');
+	game.load.image('bubble3', '../assets/pics/colorsprites2/3layer.png');
+	game.load.image('bubble4', '../assets/pics/colorsprites2/4layer.png');
+	game.load.image('bubble5', '../assets/pics/colorsprites2/5layer.png');
   game.load.image('logo', '../assets/pics/logo2.png');
   game.load.image('gameOverPicture', '../assets/pics/gameover.png');
   game.load.image('playAgain', '../assets/pics/playagainbutton.png');

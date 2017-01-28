@@ -14,6 +14,7 @@ var headline;
 var startButton;
 var loginButton;
 var menuBubblesOnScreen = [];
+var gameBubblesOnScreen = [];
 var line1;
 var lineLoop; 
 var lineSpeed=.001;
@@ -27,9 +28,9 @@ function preload(){
 	//This allows the game to fully fit the screen and scale accordingly
 	this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-  //background image
-  game.load.image("background", '../assets/pics/bg2.jpg');
-  game.load.image("background", '../assets/pics/bg3.jpg');
+  	//background image
+  	game.load.image("background", '../assets/pics/bg2.jpg');
+  	game.load.image("background", '../assets/pics/bg3.jpg');
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('line1', '../assets/pics/line.png');
@@ -37,13 +38,13 @@ function preload(){
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
 	game.load.atlasJSONArray('colorspritesheet', '../assets/pics/colorsprites/colorspritesheet.png', '../assets/pics/colorsprites/colorspritesheet.json')
-  game.load.image('bubble1', '../assets/pics/colorsprites2/1layer.png');
+  	game.load.image('bubble1', '../assets/pics/colorsprites2/1layer.png');
 	game.load.image('bubble2', '../assets/pics/colorsprites2/2layer.png');
 	game.load.image('bubble3', '../assets/pics/colorsprites2/3layer.png');
 	game.load.image('bubble4', '../assets/pics/colorsprites2/4layer.png');
 	game.load.image('bubble5', '../assets/pics/colorsprites2/5layer.png');
-  game.load.image('logo', '../assets/pics/logo2.png');
-  game.load.image('gameOverPicture', '../assets/pics/gameover.png');
+  	game.load.image('logo', '../assets/pics/logo2.png');
+  	game.load.image('gameOverPicture', '../assets/pics/gameover.png');
   game.load.image('playAgain', '../assets/pics/playagainbutton.png');
 }
 
@@ -119,6 +120,7 @@ function create(){
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble1.events.onInputDown.add(destroySprite, this);
+		    	gameBubblesOnScreen.push(bubble1);
 	    	}
 	    	else{
 	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
@@ -141,6 +143,7 @@ function create(){
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble2.events.onInputDown.add(destroySprite, this);
+		    	gameBubblesOnScreen.push(bubble2);
 	    	}
 	    	else{
 	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
@@ -163,6 +166,7 @@ function create(){
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble3.events.onInputDown.add(destroySprite, this);
+		    	gameBubblesOnScreen.push(bubble3);
 	    	}
 	    	else{
 	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
@@ -185,6 +189,7 @@ function create(){
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble4.events.onInputDown.add(destroySprite, this);
+		    	gameBubblesOnScreen.push(bubble4);
 	    	}
 	    	else{
 	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
@@ -207,6 +212,7 @@ function create(){
 	    	//If the bubble that was created is to be a 'game' bubble, we make it clickable, poppable and capable of affecting the score. 
 	    	if(gameStarted == true){
 		    	bubble5.events.onInputDown.add(destroySprite, this);
+		    	gameBubblesOnScreen.push(bubble5);
 	    	}
 	    	else{
 	    		//If we are still loading menu bubbles, push them to an array so that we can easily count them and remove them from the game upon start.
@@ -297,7 +303,6 @@ function create(){
             console.log("Sorry Game Over!")
             console.log("Score: " + counter)
             destroyLine(line1);
-            game.paused = true; 
             gameOverScreen();
         }
   }
@@ -319,7 +324,9 @@ function create(){
 			menuBubblesOnScreen[i].destroy();
 		}
 		gameStarted = true; 
-		sprite.destroy();
+		if(sprite){
+			sprite.destroy();
+		}
 		loginButton.destroy();
 		headline.destroy();
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
@@ -365,7 +372,8 @@ function create(){
   		reg.modal.createModal({
   			type: "gameOverModal",
   			includeBackground: true,
-  			modalCloseOnInput: true,
+  			modalCloseOnInput: false,
+
   			itemsArr: [{
   				type: "image",
   				content: "gameOverPicture",
@@ -376,7 +384,7 @@ function create(){
   			{
   				type: "text",
   				content: "Your final score was "+counter,
-
+  				color: 'white'
   			},
   			{
   				type: "image",
@@ -386,8 +394,15 @@ function create(){
   				contentScale: 0.6,
   				callback: function(){
   					//Reset game parameters.
-  					console.log("Function to reset the game params and start new.")
-  					alert("this should restart the game");
+  					counter = 0; 
+  					bubbleSpeed = 800;
+  					lineSpeed = .001;
+  					reg.modal.hideModal('gameOverModal');
+  					for(var i = 0; i < gameBubblesOnScreen.length; i++){
+						gameBubblesOnScreen[i].destroy();
+					}
+					scoreText.destroy();
+  					startGame();
   				}
   			}]
   		});

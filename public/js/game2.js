@@ -17,6 +17,7 @@ var menuBubblesOnScreen = [];
 var line1;
 var lineLoop; 
 var lineSpeed=.001;
+var bubbleSpeed=800;
 //Used to create and utilize the gameoverModal. 
 var reg = {};
 var spritesheetAnimation;
@@ -28,6 +29,7 @@ function preload(){
 
   //background image
   game.load.image("background", '../assets/pics/bg2.jpg');
+  game.load.image("background", '../assets/pics/bg3.jpg');
 
 	//This preloads all of the assets that we will need for our game. 
 	game.load.image('line1', '../assets/pics/line.png');
@@ -35,14 +37,14 @@ function preload(){
 	game.load.image('startButton', '../assets/pics/startbutton.png');
 	game.load.image('loginButton', '../assets/pics/login.png');
 	game.load.atlasJSONArray('colorspritesheet', '../assets/pics/colorsprites/colorspritesheet.png', '../assets/pics/colorsprites/colorspritesheet.json')
-    game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
+  game.load.image('bubble1', '../assets/pics/colorsprites/1layer.png');
 	game.load.image('bubble2', '../assets/pics/colorsprites/2layer.png');
 	game.load.image('bubble3', '../assets/pics/colorsprites/3layer.png');
 	game.load.image('bubble4', '../assets/pics/colorsprites/4layer.png');
 	game.load.image('bubble5', '../assets/pics/colorsprites/5layer.png');
-    game.load.image('logo', '../assets/pics/logo2.png');
-    game.load.image('gameOverPicture', '../assets/pics/gameover.png');
-    game.load.image('playAgain', '../assets/pics/playagainbutton.png');
+  game.load.image('logo', '../assets/pics/logo2.png');
+  game.load.image('gameOverPicture', '../assets/pics/gameover.png');
+  game.load.image('playAgain', '../assets/pics/playagainbutton.png');
 }
 
 //Function to create game elements. 
@@ -167,7 +169,7 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble3);
 	    	}
     	}
-    	else if(rand >=.451 && rand <=.500){
+    	else if(rand >=.451){
     		var bubble4 = sprites.create(game.world.randomX, game.world.randomY, "bubble4");
     		//Creates bubble with random size. 
     		bubble4.scale.setTo(rand, rand);
@@ -211,11 +213,6 @@ function create(){
 	    		menuBubblesOnScreen.push(bubble5);
 	    	}
     	}
-    	else{
-    		console.log("Number generated was not between .3 and .550, it was: "+rand);
-    		console.log("This should generate a red bubble that hurts the user if they click it. ")
-    	}
-
     	
   	}
 
@@ -282,13 +279,14 @@ function create(){
       lossCheck();
   }
 
+
   //function to push line down 1% * the multiplier provided by the bubble in destroySprite.
   function lineDown(multiplier){
     if (line1.y>=window.innerHeight*window.devicePixelRatio){
       line1.y=window.innerHeight*window.devicePixelRatio-5
     }
     else{
-    line1.y+=((window.innerHeight*.02)*multiplier);
+    line1.y+=((window.innerHeight*.03)*multiplier);
     }
   }
 
@@ -305,7 +303,12 @@ function create(){
   }
 
   function lineSpeedIncrease(){
-    lineSpeed+=.0005
+    lineSpeed+=.001
+  }
+
+  //bubble speed generation increase
+  function bubbleSpeedUp(){
+      bubbleSpeed-=100
   }
 
 
@@ -322,7 +325,7 @@ function create(){
 		//Adds a text field into our game that is blank to start. This will eventually hold the number of times we clicked. 
 		scoreText = game.add.text(1, 1, '', { fill: '#ffffff' });
 		//The game has started so we begin creating game bubbles. 
-		game.time.events.loop(500, createSprite, this)
+		game.time.events.loop(bubbleSpeed, createSprite, this)
 
     //creates the line and begins to move it up.
     line1 = game.add.sprite(0, window.innerHeight*window.devicePixelRatio, 'line1');
@@ -332,7 +335,14 @@ function create(){
     line1.scale.setTo(game.width, 1);
     lineLoop = game.time.events.loop(1, lineMove, 'line1');
 
-    game.time.events.loop(10000, lineSpeedIncrease)
+    game.time.events.loop(10000, bubbleSpeedUp)
+    game.time.events.loop(10000, logSpeed)
+
+    game.time.events.loop(8000, lineSpeedIncrease)
+  }
+
+  function logSpeed(){
+    console.log(bubbleSpeed);
   }
 
   	//Function that will allow our users to login via a modal. 
@@ -372,7 +382,7 @@ function create(){
   				type: "image",
   				content: "playAgain",
   				offsetY: 100,
-  				offsetX: -80,
+  				offsetX: 0,
   				contentScale: 0.6,
   				callback: function(){
   					//Reset game parameters.
